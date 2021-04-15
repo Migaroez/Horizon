@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Horizon</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<link rel="stylesheet" href="Styles/LandingPage.css"/>
+</head>
+<body class="bg-gr-main">
+    <div id="bank-notes"></div>
+    <div id="hideout"></div>
+    <div class="bg-main">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand js-scroll-trigger text-light title pl-5" href="/">Horizon</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto my-2 my-lg-0">
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about"><div class="col-sm"><button type="button" class="btn btn-outline-light" id="web3Connect"><span id="address">Connect</span></button></div></a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services"><div class="col-sm"><button type="button" class="btn btn-dark btn-dark-blue">Launchpad</button></div></a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio"><div class="col-sm"><button type="button" class="btn btn-dark btn-dark-blue">About</button></div></a></li>
+                    </ul>
+                </div>
+          </nav>
+    
+          <section>
+            <div class="container text-light pt-5">
+                <div class="row">
+                  <div class="col-md bg-gr-blue pr-5">
+                        <h1>A DeFi platform,<br/> build for everyone</h1>
+                        
+                        <div class="my-5 py-3">
+                            <p class="mb-1">Projects vetted by professionals </p>
+                            <p class="mb-1">and brought to retail investors first.</p>
+                            <p class="mb-1">Powerful, easy-to-use, and lightining fast.</p>
+                        </div>
+                        
+                        <button type="button" class="btn btn-dark btn-dark-blue">Get Started</button>
+                  </div>
+                  <div class="col-md pl-5">
+                      <div class="token-statistics">
+                        <h2 class="h1">Token Statistics</h2>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm p-3"><button type="button" class="btn btn-dark btn-dark-blue btn-block">Price:$</button></div>
+                                <div class="col-sm p-3"><button type="button" class="btn btn-dark btn-dark-blue btn-block">Mcap:</button></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm p-3"><button type="button" class="btn btn-light btn-block">Buy now</button></div>
+                                <div class="col-sm p-3"><button type="button" class="btn btn-light btn-block">Chart</button></div>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+          </section>
+    </div>
+    
+
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.5/web3.min.js" integrity="sha512-S/O+gH5szs/+/dUylm15Jp/JZJsIoWlpSVMwT6yAS4Rh7kazaRUxSzFBwnqE2/jBphcr7xovTQJaopiEZAzi+A==" crossorigin="anonymous"></script>
+      <script src="https://unpkg.com/@metamask/detect-provider/dist/detect-provider.min.js"></script>
+      <!-- <script>
+          const Web3 = require('web3');
+// mainnet
+const web3 = new Web3('https://bsc-dataseed1.binance.org:443');
+      </script> -->
+
+<script>
+    let web3;
+    let accounts;
+    async function isInstalled() {
+        const provider = await detectEthereumProvider()
+       
+        if (provider) {
+            web3 = new Web3();
+            web3.setProvider(provider);
+            console.log('MetaMask is installed');
+            return true;
+        } else {
+            console.log('MetaMask is not installed');
+            return false;
+        }
+
+    }
+
+    async function ConnectWeb3(){
+        await isInstalled();
+        web3.eth.getAccounts().then((accounts) =>{
+            DisplayAccountName(accounts[0])
+            DisplayBalance(accounts[0])
+            DisplayInfo()
+            DisplayHodleAmount(accounts[0])
+        });
+    }
+
+    function DisplayAccountName(account){
+        document.getElementById("address").innerHTML = account.substring(0,12) + "...";
+    }
+    function DisplayBalance(account){
+        web3.eth.getBalance(account)
+                .then(console.log);
+    }
+    function DisplayInfo(){
+        web3.eth.getNodeInfo().then(console.log);
+        web3.eth.getChainId().then(console.log);
+        console.log(web3);
+    }
+    function DisplayHodleAmount(account){
+        fetch("ABI/bep20.json")
+        .then(response => response.json())
+        .then(json => {
+            var hodlContract = new web3.eth.Contract(json,'0xd7bf683cad197f4f869678cddc345b38b483d8e4');
+            console.log(hodlContract)
+            hodlContract.methods.balanceOf(account).call().then(console.log)
+        });
+    }
+
+    document.getElementById("web3Connect").addEventListener("click", (event) => ConnectWeb3(event));
+
+</script>
+</body>
+</html>
