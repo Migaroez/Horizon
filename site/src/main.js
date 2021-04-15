@@ -4,8 +4,8 @@ import router from "./router";
 import store from "./store";
 
 // import npm dependencies
-import 'bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 Vue.config.productionTip = false;
 
