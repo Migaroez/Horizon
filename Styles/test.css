@@ -1,9 +1,0 @@
-body, html{
-    height: 100%;
-    margin:0;
-}
-
-body{
-    background: url("../Svg/bg.svg") no-repeat;
-    background-size: cover;
-}
