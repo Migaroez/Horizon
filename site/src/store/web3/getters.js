@@ -8,4 +8,7 @@ export default {
       ? "Connect"
       : state.accounts[0].substring(0, 12) + "...";
   },
+  isAccountActive: function (state) {
+    return state.accounts && state.accounts.length > 0;
+  },
 };

@@ -25,8 +25,6 @@ export default {
     });
   },
   connect: function ({ state, commit }) {
-    console.log("web/connect called");
-    console.group(state);
     if (state.isInitialized != true || state.walletIsInstalled != true) {
       console.log("cant connect | not initialized");
       return;

@@ -19,6 +19,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
+  {
+    path: "/launchpad",
+    name: "Launchpad",
+    component: () =>
+      import(/* webpackChunkName: "launchpad" */ "../views/Launchpad.vue"),
+  },
 ];
 
 const router = new VueRouter({

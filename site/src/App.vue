@@ -5,10 +5,10 @@
       <div id="hideout"></div>
       <div id="visual-wrapper">
         <nav id="nav" class="navbar navbar-expand-lg navbar-light">
-          <a
+          <router-link
             class="navbar-brand js-scroll-trigger text-light title pl-5"
-            href="/"
-            >Horizon</a
+            to="/"
+            >Horizon</router-link
           >
           <button
             class="navbar-toggler navbar-toggler-right"
@@ -39,7 +39,7 @@
                 >
               </li>
               <li class="nav-item">
-                <router-link class="nav-link js-scroll-trigger" to="#services"
+                <router-link class="nav-link js-scroll-trigger" to="/Launchpad"
                   ><div class="col-sm">
                     <button type="button" class="btn btn-dark btn-dark-blue">
                       Launchpad
@@ -74,9 +74,6 @@ export default {
   name: "App",
   data: function () {
     return {};
-  },
-  components: {
-    // HelloWorld,
   },
   computed: {
     ...mapGetters({
