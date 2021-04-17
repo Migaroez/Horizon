@@ -1,10 +1,15 @@
 import Web3 from "web3";
 import DetectEthereumProvider from "@metamask/detect-provider";
+import UnboundWeb3 from "@/store/web3/unbound.js";
 
-let web3; //if we store it in vuex it gets wrapped and we get errors
 export default {
-  initialize: function ({ commit }) {
+  initialize: async function ({ commit, state }) {
+    if (state.isInitialized) {
+      return;
+    }
+
     let provider;
+    let web3;
     DetectEthereumProvider().then((result) => {
       provider = result;
       if (provider) {
@@ -16,11 +21,13 @@ export default {
         return;
       }
 
-      //subscribe to events
+      // subscribe to events
       window.ethereum.on("accountsChanged", (accountResponse) =>
         commit("setAccounts", accountResponse)
       );
 
+      UnboundWeb3.web3 = web3;
+      UnboundWeb3.provider = provider;
       commit("setInitialized");
     });
   },
@@ -32,7 +39,7 @@ export default {
     window.ethereum
       .send("eth_requestAccounts")
       .then(
-        web3.eth
+        UnboundWeb3.web3.eth
           .getAccounts()
           .then((accountResponse) => commit("setAccounts", accountResponse))
       );

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@metamask/detect-provider": "^1.2.0",
+    "bn": "^1.0.5",
     "bootstrap": "^4.6.0",
     "core-js": "^3.6.5",
     "jquery": "^3.6.0",

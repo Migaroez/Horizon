@@ -68,7 +68,6 @@
 <script>
 import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
-// let web3;
 
 export default {
   name: "App",

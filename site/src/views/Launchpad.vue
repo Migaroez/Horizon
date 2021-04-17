@@ -41,6 +41,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "App",
@@ -59,6 +60,10 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      connectLaunchpad: "launchpad/connect",
+      initializeLaunchpad: "launchpad/initialize",
+    }),
     addItem: function () {
       this.items.push({ name: "anotherItem" });
     },
@@ -68,6 +73,19 @@ export default {
         newArr.push(arr.slice(i, i + size));
       }
       return newArr;
+    },
+  },
+  mounted: async function () {
+    await this.initializeLaunchpad();
+    if (this.web3Ready) {
+      this.connectLaunchpad();
+    }
+  },
+  watch: {
+    web3Ready(newValue) {
+      if (newValue) {
+        this.connectLaunchpad();
+      }
     },
   },
 };
